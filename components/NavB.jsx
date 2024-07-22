@@ -6,10 +6,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAppContext } from "@mycontext/AppContext";
 import { setCurrentUser } from "@utils/setCurrentUser";
+import { useRouter } from 'next/navigation';
 
 const NavB = () => {
   const context = useAppContext();
   const BaseUrl = process.env.NEXT_PUBLIC_BaseUrl;
+  const router = useRouter();
 
   const [ToggleDropDown, setToggleDropDown] = useState(false);
   const pathName = usePathname();
@@ -23,11 +25,13 @@ const NavB = () => {
       console.log("no token");
       //context.setb_isLoggedIn(false);
       context.setLuser({
-        _id: "",
-        username: "",
-        email: "",
-        role: "",
-      });
+        user: {
+            _id: "",
+            username: "",
+            email: "",
+            role: ""
+        }
+    });
       return;
     }
 
@@ -54,11 +58,34 @@ const NavB = () => {
   };
 
   useEffect(() => {
-    console.log("validating");
-    console.log(context.Luser);
+    //console.log("validating");
+    //console.log(context.Luser);
     providerForLogin();
-  }, [context.b_reValidateLogin]); 
-  
+  }, [context.b_reValidateLogin]);
+
+  useEffect(() => {
+    console.log(context.Luser.user._id);
+  });
+
+
+  const onClickTest = (e) => {
+    e.preventDefault();
+  };
+
+  const onClick_Signout = (e) => {
+    try{
+      // Clear the token stored in local storage 
+      localStorage.removeItem('con_token'); 
+      router.push('/login');
+    }catch(err){
+      console.log(err)
+    }
+  };
+
+  const onClick_signin = (e) => {
+      router.push('/login');
+    
+  };
 
   return pathName !== "/login" && pathName !== "/signup" ? (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -73,52 +100,54 @@ const NavB = () => {
         <p className="logo_text ">PropertyDekho</p>
       </Link>
 
-      {/*desktop navigation
-      <div className="sm:flex hidden">
-        {session?.user ? (
-          <div className="flex gap-3 md:gap-5">
-            <Link href="/Create-Prompt" className="black_btn">
-              Create Post
-            </Link>
+      {
+        /*desktop navigation*/
+        <div className="sm:flex hidden">
+          {context.Luser.user._id !== "" ? (
+            <div className="flex gap-3 md:gap-5">
+              {(context.Luser.user.role !== "customer" &&
+              <Link href="/admin" className="black_btn">
+                Admin Panel
+              </Link>
+              )}
+              <button
+                type="button"
+                className="outline_btn"
+                onClick={onClick_Signout}
+              >
+                Sign Out
+              </button>
 
-            <button type="button" className="outline_btn" onClick={signOut}>
-              Sign Out
-            </button>
+              <Link href="/Profile">
+                <Image
+                  src="/assets/images/profile-user.png"
+                  alt="User Profile"
+                  width={37}
+                  height={37}
+                  className="cursor-pointer rounded-full"
+                />
+              </Link>
+            </div>
+          ) : (
+            <>
+              <button
+                type="button"
+                onClick= {onClick_signin}
+                className="black_btn"
+              >
+                Sign In
+              </button>
+            </>
+          )}
+        </div>
+      }
 
-            <Link href="/Profile">
-              <Image
-                src={session?.user.image}
-                alt="User Profile"
-                width={37}
-                height={37}
-                className="cursor-pointer rounded-full"
-              />
-            </Link>
-          </div>
-        ) : (
-          <>
-            {providers &&
-              Object.values(providers).map((provider) => (
-                <button
-                  type="button"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                  className="black_btn"
-                >
-                  Sign In
-                </button>
-              ))}
-          </>
-        )}
-      </div>
-      */}
-
-      {/*mobile navigation
+      {/*mobile navigation*/
       <div className="sm:hidden flex relative"> 
-        {session?.user ? (
+        {context.Luser.user._id !== "" ? (
           <div className="flex">
             <Image
-              src={session?.user.image}
+              src="/assets/images/profile-user.png"
               alt="User Profile"
               width={37}
               height={37}
@@ -139,21 +168,17 @@ const NavB = () => {
                 >
                   Profile
                 </Link>
-                <Link
-                  href="/Create-Prompt"
-                  className="dropdown_link"
-                  onClick={() => {
-                    setToggleDropDown(false);
-                  }}
-                >
-                  Create Post
+                {(context.Luser.user.role !== "customer" &&
+                <Link href="/admin" className="black_btn">
+                Admin Panel
                 </Link>
+                )}
 
                 <button
                   type="button"
                   className="mt-5 w-full black_btn"
                   onClick={() => {
-                    signOut();
+                    onClick_Signout()
                     setToggleDropDown(false);
                   }}
 
@@ -167,21 +192,17 @@ const NavB = () => {
           </div>
         ) : (
           <>
-            {providers &&
-              Object.values(providers).map((provider) => (
-                <button
-                  type="button"
-                  key={provider.name}
-                  onClick={() => signIn(provider.id)}
-                  className="black_btn"
-                >
-                  Sign In
-                </button>
-              ))}
+            <button
+                type="button"
+                onClick= {onClick_signin}
+                className="black_btn"
+              >
+                Sign In
+              </button>
           </>
         )}
       </div>
-      */}
+      }
     </nav>
   ) : (
     <></>
