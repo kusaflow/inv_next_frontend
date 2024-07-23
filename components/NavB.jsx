@@ -63,10 +63,6 @@ const NavB = () => {
     providerForLogin();
   }, [context.b_reValidateLogin]);
 
-  useEffect(() => {
-    console.log(context.Luser.user._id);
-  });
-
 
   const onClickTest = (e) => {
     e.preventDefault();
@@ -105,6 +101,11 @@ const NavB = () => {
         <div className="sm:flex hidden">
           {context.Luser.user._id !== "" ? (
             <div className="flex gap-3 md:gap-5">
+              {(context.Luser.user.role !== "customer" &&
+              <Link href="/admin/addProperty" className="black_btn">
+                Add Property
+              </Link>
+              )}
               {(context.Luser.user.role !== "customer" &&
               <Link href="/admin" className="black_btn">
                 Admin Panel

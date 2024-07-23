@@ -2,6 +2,7 @@ import "@styles/globals.css";
 import { AppContextProvider } from '@mycontext/AppContext';
 import NavB from '@components/NavB'
 
+
 export const metadata = {
   title: "PropertyDekho",
   description: "Buy Properties",

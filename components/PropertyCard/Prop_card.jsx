@@ -12,16 +12,24 @@ import Link from "next/link";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { useAppContext } from "@mycontext/AppContext";
+import DeleteConfirmation from "@components/DeleteConfirmation";
 
 
-
-const Prop_card = ({ property, isPropertyCreator }) => {
+const Prop_card = ({ property, isPropertyCreator}) => {
   const userId = "kunal";
-  const hasOrderLink = true;
-  const hidePrice = false;
+
+  const context = useAppContext();
+
+  var canBookTour = false;
+
+  if (context.Luser.user.role === "customer"){
+    canBookTour = true;
+  }
 
   return (
     <>
+    
       <div className="my-20 mx-5 group relative flex min-h-[380px] max-h-[500] w-full max-w-[700px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
         {/* Carousel for Property Images */}
         <Carousel className="w-full max-w-xl mx-auto">
@@ -47,7 +55,7 @@ const Prop_card = ({ property, isPropertyCreator }) => {
 
         {isPropertyCreator && (
           <div className="absolute right-2 top-2 flex flex-col gap-4 rounded-xl bg-white p-3 shadow-sm transition-all">
-            <Link href={`/properties/${property._id}/update`} passHref>
+            <Link href={`/admin/${property._id}`} passHref>
               <Image
                 src="/assets/icons/edit.svg"
                 alt="edit"
@@ -55,7 +63,7 @@ const Prop_card = ({ property, isPropertyCreator }) => {
                 height={20}
               />
             </Link>
-            {/* Optionally include DeleteConfirmation component */}
+            <DeleteConfirmation Property_ID={property._id} />
           </div>
         )}
 
@@ -78,7 +86,8 @@ const Prop_card = ({ property, isPropertyCreator }) => {
               ₹{property.price}
             </span>
           </div>
-
+            
+        {canBookTour ?( 
           <div className="flex-between w-full">
             <Link href={`/orders?propertyId=${property._id}`}>
               <p className="flex items-center gap-2 text-primary-500"></p>
@@ -94,6 +103,7 @@ const Prop_card = ({ property, isPropertyCreator }) => {
                 
             </Link>
           </div>
+          ):(<></>)}
         </div>
       </div>
     </>

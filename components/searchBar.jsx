@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useAppContext } from '@mycontext/AppContext';
 import Image from 'next/image';
 
-const SearchBar = () => {
-  const { UpdateAllProperty } = useAppContext();
+const SearchBar = ({UpdateAllProperty}) => {
+  //const { UpdateAllProperty } = useAppContext();
   const [filters, setFilters] = useState({
     text: '',
     minPrice: '',
