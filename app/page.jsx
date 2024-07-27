@@ -11,6 +11,11 @@ const HomePage = () => {
     const [filterData, setFilterData] = useState({});
 
     useEffect(()=>{
+        console.log("empty");
+    },[])
+
+    useEffect(()=>{
+        console.log("fi;ter DAta");
         context.UpdateAllProperty(filterData)
     },[filterData])
 

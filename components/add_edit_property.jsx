@@ -11,6 +11,7 @@ const AddProperty = ({defValues, isupdate, propId}) => {
   const context = useAppContext();
   const isSuperAdmin = (context.Luser.user.role === "superadmin");
 
+
   const [property, setProperty] = useState(defValues || {
     
         name: '',
@@ -35,6 +36,13 @@ const AddProperty = ({defValues, isupdate, propId}) => {
 
   const handleImageChange = (file, idx) => {
     setProperty(prev => ({ ...prev, images: prev.images.map((img, i) => i === idx ? file : img) }));
+  };
+
+  const handleImageDelete = (idx) => {
+    setProperty(prev => ({
+      ...prev,
+      images: prev.images.map((img, i) => i === idx ? '' : img) // Set empty string or handle as needed
+    }));
   };
 
   const handleAmenityAdd = () => {
@@ -87,6 +95,13 @@ const AddProperty = ({defValues, isupdate, propId}) => {
 
     setIsFormValid(validateForm());
   }, [property]);
+
+  useEffect(() => {
+    setProperty(prev => ({
+      ...defValues,
+      images: [...(defValues.images || []), '', '', ''].slice(0, 3)  // Ensure three slots are there
+    }));
+  }, [defValues]);
 
   return (
     <div className="min-h-screen bg-blue-100 flex items-center justify-center p-4 rounded-2xl">
@@ -165,24 +180,33 @@ const AddProperty = ({defValues, isupdate, propId}) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {property.images.map((image, idx) => (
-              <div key={idx}>
-                <UploadButton
-                  endpoint="imageUploader"
-                  onClientUploadComplete={(res) => {
-                    handleImageChange(res[0].url, idx);
-                    //alert("Upload Completed");
-                  }}
-                  onUploadError={(error) => {
-                    alert(`ERROR! ${error.message}`);
-                  }}
-                />
-                {image && (
-                  <img src={image} alt={`Property Image ${idx + 1}`} className="mt-2 w-full h-32 object-cover rounded-md" />
-                )}
-              </div>
-            ))}
-          </div>
+  {property.images.map((image, idx) => (
+    <div key={idx} className="relative">
+      {image ? (
+        <>
+          <img src={image} alt={`Property Image ${idx + 1}`} className="mt-2 w-full h-32 object-cover rounded-md" />
+          <button
+            type="button"
+            onClick={() => handleImageDelete(idx)}
+            className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
+          >
+            &times;
+          </button>
+        </>
+      ) : (
+        <UploadButton
+          endpoint="imageUploader"
+          onClientUploadComplete={(res) => {
+            handleImageChange(res[0].url, idx);
+          }}
+          onUploadError={(error) => {
+            alert(`ERROR! ${error.message}`);
+          }}
+        />
+      )}
+    </div>
+  ))}
+</div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700">Amenities</label>
