@@ -4,15 +4,24 @@ import Prop_card from "../components/PropertyCard/Prop_card";
 import { useEffect, useState } from "react";
 import { useAppContext } from "@mycontext/AppContext";
 import SeachBar from "@components/searchBar";
+import { useRouter } from "next/navigation";
 
 const HomePage = () => {
     const context = useAppContext();
-
+    const router = useRouter();
     const [filterData, setFilterData] = useState({});
 
     useEffect(()=>{
         console.log("empty");
     },[])
+
+    useEffect(() => {
+        //console.log(Luser)
+        if (context.Luser.user.role === 'Superme_admin') {
+            router.push('/UserManagement');
+          
+        }
+      }, [context.Luser.user]);
 
     useEffect(()=>{
         console.log("fi;ter DAta");

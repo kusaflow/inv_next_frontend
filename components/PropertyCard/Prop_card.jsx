@@ -89,13 +89,14 @@ const Prop_card = ({ property, isPropertyCreator}) => {
             
         {canBookTour ?( 
           <div className="flex-between w-full">
-            <Link href={`/orders?propertyId=${property._id}`}>
+            {/*<Link href={`/booking/${property._id}`}>*/}
+            <Link href={`/booking/addBooking/${property._id}`}>
               <p className="flex items-center gap-2 text-primary-500"></p>
               <Button variant="link" className = "flex items-center gap-4 text-primary-500">
                 Book Tour
                 <Image
                   src="/assets/icons/arrow.svg"
-                  alt="search"
+                  alt="booking"
                   width={10}
                   height={10}
                 />

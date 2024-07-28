@@ -101,12 +101,12 @@ const NavB = () => {
         <div className="sm:flex hidden">
           {context.Luser.user._id !== "" ? (
             <div className="flex gap-3 md:gap-5">
-              {(context.Luser.user.role !== "customer" &&
+              {(context.Luser.user.role !== "customer" && context.Luser.user.role !== "Superme_admin" &&
               <Link href="/admin/addProperty" className="black_btn">
                 Add Property
               </Link>
               )}
-              {(context.Luser.user.role !== "customer" &&
+              {(context.Luser.user.role !== "customer" && context.Luser.user.role !== "Superme_admin" &&
               <Link href="/admin" className="black_btn">
                 Admin Panel
               </Link>
@@ -169,7 +169,7 @@ const NavB = () => {
                 >
                   Profile
                 </Link>
-                {(context.Luser.user.role !== "customer" &&
+                {(context.Luser.user.role !== "customer" && context.Luser.user.role !== "Superme_admin" &&
                 <Link href="/admin" className="black_btn">
                 Admin Panel
                 </Link>

@@ -34,7 +34,7 @@ const DeleteConfirmation = ({ Property_ID }) => {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you sure you want to delete?</AlertDialogTitle>
           <AlertDialogDescription className="p-regular-16 text-grey-600">
-            This will permanently delete this event
+            This will permanently delete this Property
           </AlertDialogDescription>
         </AlertDialogHeader>
 
