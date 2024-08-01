@@ -112,6 +112,9 @@ const SearchBar = ({UpdateAllProperty}) => {
           <button onClick={handleReset_text} type="button" className="p-2 bg-red-300 text-white rounded-full shadow-sm">
             <Image src="/assets/icons/delete.svg" alt="reset" width={20} height={20} />
           </button>
+          <button onClick={handleSubmit} type="button" className="p-2 bg-red-300 text-white rounded-full shadow-sm">
+            <Image src="/assets/icons/search.svg" alt="reset" width={20} height={20} />
+          </button>
         </div>
         <div className="w-full md:w-auto mt-8">
           <FilterSortBar />
