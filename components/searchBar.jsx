@@ -54,7 +54,7 @@ const SearchBar = ({UpdateAllProperty}) => {
   useEffect(() => {
     debouncedFilters();
     
-    //console.log(filters)
+    console.log(filters)
   }, [filters]);
 
 
