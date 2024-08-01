@@ -172,3 +172,18 @@
 .flex-between {
   @apply flex justify-between items-center;
 }
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.scroll-to-top button {
+  display: none;
+}
+
+.scroll-to-top button {
+  display: inline-block;
+}

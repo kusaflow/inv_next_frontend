@@ -23,9 +23,13 @@ const Prop_card = ({ property, isPropertyCreator}) => {
 
   var canBookTour = false;
 
-  if (context.Luser.user.role === "customer"){
+  if (context.Luser.user && context.Luser.user.role === "customer"){
     canBookTour = true;
   }
+
+  const formatIndianCurrency = (amount) => {
+    return amount.toLocaleString('en-IN');
+  };
 
   return (
     <>
@@ -83,7 +87,7 @@ const Prop_card = ({ property, isPropertyCreator}) => {
           </div>
           <div className="flex gap-2">
             <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-600">
-              ₹{property.price}
+            ₹{formatIndianCurrency(property.price)}
             </span>
           </div>
             

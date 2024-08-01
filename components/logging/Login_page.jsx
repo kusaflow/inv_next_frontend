@@ -115,17 +115,7 @@ function  Login_page() {
                     <p className="text-red-700 ml-2  text-xs">{formErrors.password}</p>
                 </div>
                 
-                <div className="mb-6">
-                    
-                    <div className="flex justify-normal items-center">
-                        <input
-                            className="mr-2 mt-1 leading-tight"
-                            id="rememberMe"
-                            type="checkbox"
-                        />
-                        <label htmlFor="rememberMe" className="text-sm">Remember me on this device</label>
-                    </div>
-                </div>
+                
 
 
                 <div className="flex items-center justify-between">

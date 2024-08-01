@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useAppContext } from "@mycontext/AppContext";
 import SeachBar from "@components/searchBar";
 import { useRouter } from "next/navigation";
+import ScrollToTopButton from "@components/ScrollToTopButton";
 
 const HomePage = () => {
     const context = useAppContext();
@@ -12,32 +13,34 @@ const HomePage = () => {
     const [filterData, setFilterData] = useState({});
 
     useEffect(()=>{
-        console.log("empty");
+        //console.log("empty");
     },[])
 
     useEffect(() => {
         //console.log(Luser)
-        if (context.Luser.user.role === 'Superme_admin') {
+        if (context.Luser.user && context.Luser.user.role === 'Superme_admin') {
             router.push('/UserManagement');
           
         }
       }, [context.Luser.user]);
 
     useEffect(()=>{
-        console.log("fi;ter DAta");
+        //console.log("fi;ter DAta");
         context.UpdateAllProperty(filterData)
     },[filterData])
 
     return (
 
         <>
-            <SeachBar UpdateAllProperty={context.UpdateAllProperty}/>  
+            <SeachBar UpdateAllProperty={context.UpdateAllProperty}/> 
             <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10">
             {context.AllProperties.map((property, index) => (
                 <Prop_card key={property._id} property={property} isPropertyCreator={false} />
             ))}
             
             </div>
+            <ScrollToTopButton /> 
+            
         </>
     );
 }

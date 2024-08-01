@@ -26,6 +26,10 @@ const AddProperty = ({defValues, isupdate, propId}) => {
       
   });
 
+  const formatIndianCurrency = (amount) => {
+    return amount.toLocaleString('en-IN');
+  };
+
   const [amenity, setAmenity] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -37,6 +41,7 @@ const AddProperty = ({defValues, isupdate, propId}) => {
   const handleImageChange = (file, idx) => {
     setProperty(prev => ({ ...prev, images: prev.images.map((img, i) => i === idx ? file : img) }));
   };
+  
 
   const handleImageDelete = (idx) => {
     setProperty(prev => ({
@@ -94,6 +99,7 @@ const AddProperty = ({defValues, isupdate, propId}) => {
     };
 
     setIsFormValid(validateForm());
+    //console.log(property)
   }, [property]);
 
   useEffect(() => {
@@ -188,7 +194,7 @@ const AddProperty = ({defValues, isupdate, propId}) => {
           <button
             type="button"
             onClick={() => handleImageDelete(idx)}
-            className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
+            className="absolute top-0 right-0 bg-red-500 text-white py-1 px-2.5 rounded-xl"
           >
             &times;
           </button>

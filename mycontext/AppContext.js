@@ -215,9 +215,27 @@ export const AppContextProvider = ({ children }) => {
         setAllProperties(prevData => ({ ...prevData, ...newData }));
     };
 
+    //limits
+    const fetchPropertyLimits = async () => {
+        const url = `${BaseUrl}/properties/limits`;
+    
+        try {
+          const response = await fetch(url);
+    
+          if (!response.ok) {
+            throw new Error('Failed to fetch property limits');
+          }
+          const data = await response.json();
+          return data;
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
     return (
         <AppContext.Provider value={{ 
-            AllProperties, updateData, UpdateAllProperty,Update_Admin_AllProperty,DeleteProperty_ID,addProperty,UpdateProperty,
+            AllProperties, setAllProperties, updateData, UpdateAllProperty,Update_Admin_AllProperty,
+            DeleteProperty_ID,addProperty,UpdateProperty,fetchPropertyLimits,
             Luser, setLuser,
             b_reValidateLogin, setb_reValidateLogin
          }}>

@@ -99,7 +99,7 @@ const NavB = () => {
       {
         /*desktop navigation*/
         <div className="sm:flex hidden">
-          {context.Luser.user._id !== "" ? (
+          {context.Luser.user && context.Luser.user._id !== "" ? (
             <div className="flex gap-3 md:gap-5">
               {(context.Luser.user.role !== "customer" && context.Luser.user.role !== "Superme_admin" &&
               <Link href="/admin/addProperty" className="black_btn">
@@ -145,7 +145,7 @@ const NavB = () => {
 
       {/*mobile navigation*/
       <div className="sm:hidden flex relative"> 
-        {context.Luser.user._id !== "" ? (
+        {context.Luser.user && context.Luser.user._id !== "" ? (
           <div className="flex">
             <Image
               src="/assets/images/profile-user.png"
