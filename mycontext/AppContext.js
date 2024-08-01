@@ -30,7 +30,7 @@ export const AppContextProvider = ({ children }) => {
                 throw new Error('Failed to fetch properties');
             }
             const data = await response.json();
-            //console.log(data2);
+            console.log(data);
             //const data = await response.json();
             setAllProperties(data);
             //console.log(data)
