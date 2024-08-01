@@ -44,7 +44,7 @@ const SearchBar = ({UpdateAllProperty}) => {
 
   const debouncedFilters = useMemo(() => {
     const handler = setTimeout(() => {
-      console.log(filters)
+      //console.log(filters)
       UpdateAllProperty(filters);
     }, 1000); 
     return () => {
@@ -137,6 +137,11 @@ const SearchBar = ({UpdateAllProperty}) => {
           <span>₹{formatIndianCurrency(filters.maxPrice)}</span>
           </div>
         </div>
+
+          <button onClick={handleSubmit} type="button" className="p-2 bg-slate-100 text-white rounded-2xl shadow-sm">
+            <Image src="/assets/images/refresh.png" alt="reset" width={40} height={40} />
+          </button>
+
         <div className="flex flex-col w-full md:w-2/5">
           <label className="block text-sm font-medium text-gray-700 mb-2">Size Range (sqft)</label>
           <Slider
