@@ -44,6 +44,7 @@ const SearchBar = ({UpdateAllProperty}) => {
 
   const debouncedFilters = useMemo(() => {
     const handler = setTimeout(() => {
+      console.log(filters)
       UpdateAllProperty(filters);
     }, 1000); 
     return () => {
@@ -54,7 +55,7 @@ const SearchBar = ({UpdateAllProperty}) => {
   useEffect(() => {
     debouncedFilters();
     
-    console.log(filters)
+    
   }, [filters]);
 
 
